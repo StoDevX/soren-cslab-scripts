@@ -1,26 +1,10 @@
 #!/bin/bash
-# %%% Check to make sure user is not close to their disk quota.
-# By default we will warn if the user is using more than 85% of their quota;
-# this can be customized with an environment variable.
+echo ""
+echo "Calling this script as 'quotachk.sh' is deprecated."
+echo "Please use the new filename 'warn_quota' instead."
+echo "Please update your ~/.cshrc or ~/.bashrc as appropriate."
+echo ""
 
-if [ -z "$QUOTA_WARNING_THRESHOLD" ]; then
-    qwt=85
-else
-    qwt=$QUOTA_WARNING_THRESHOLD
-fi
+echo "$(date) :: $(whoami) :: called quotachk.sh" >> /home/users/bjornsta/bin/old_file_log.txt
 
-quotavals=$(quota | tail -n 1 | column -t)
-using=$(echo "$quotavals" | cut -d ' ' -f 1)
-total=$(echo "$quotavals" | cut -d ' ' -f 5)
-percent=$(echo "100 * $using / $total" | bc -q)
-
-if [ $percent -ge $qwt ]; then
-    echo -e "\e[1;31mQUOTA WARNING:\e[0m \e[1;33mYou are using $percent% of your quota!\e[0m"
-    if [ -z "$QUOTA_WARNING_THRESHOLD" ]; then
-        cat <<EOM
-(If you'd prefer not to see this message until you reach a higher percentage
-utilization, set the environment variable QUOTA_WARNING_THRESHOLD to the
-integer percentage you'd like to trigger the message.)
-EOM
-    fi
-fi
+/home/users/bjornsta/bin/warn_quota
