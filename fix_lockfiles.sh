@@ -1,3 +1,3 @@
 #!/bin/bash
-rm ~/.mozilla/firefox/*/lock
-rm ~/.mozilla/firefox/*/.parentlock
+rm -f ~/.mozilla/firefox/*/lock
+rm -f ~/.mozilla/firefox/*/.parentlock

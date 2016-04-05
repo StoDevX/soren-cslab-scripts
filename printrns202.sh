@@ -10,4 +10,4 @@ die() {
 
 [ -z "$1" ] && die "Usage: `basename $0` file-to-print"
 [ -f "$1" ] || die "The file you specified does not exist!"
-cat "$1" | ssh $SSHTO 'cat - | lpr -Pdept-rns202'
+cat "$1" | ssh "$SSHTO" 'cat - | lpr -Pdept-rns202'
